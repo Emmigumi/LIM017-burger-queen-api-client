@@ -9,14 +9,14 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AdminUserListComponent implements OnInit {
   listWorkers: Workers[] = [];
-  Users!: Workers;
+ /*  Users!: Workers;
   valueSearch: string = '';
   optionAdmin !: any;
-  boolValue!:boolean;
-  constructor(private bduserService: BdUserService, private toastr: ToastrService) { }
+  boolValue!:boolean; */
+  constructor(public bduserService: BdUserService/*, private toastr: ToastrService*/) { }
 
   ngOnInit(): void {
-    this.getUser();
+  //  this.getUser();
     this.obtainValueSearh();
   }
   getUser() {
@@ -25,33 +25,33 @@ export class AdminUserListComponent implements OnInit {
     },error => {console.log(error)});
   }
   deleteUser(workers:Workers) {
-    this.bduserService.deleteBdUserService(workers).subscribe(() =>{
+    /* this.bduserService.deleteBdUserService(workers).subscribe(() =>{
       this.listWorkers = this.listWorkers.filter(workerUnDelete => workerUnDelete.id !== workers.id)
       this.toastr.error('El usuario fue eliminado con éxito', 'Usuario Eliminado');
       console.log('El usuario fue eliminado');
-    },error => {console.log(error)})
+    },error => {console.log(error)}) */
   }
   updateUser(workers: Workers) {
-    this.Users = workers;
+   /*  this.Users = workers;
     console.log(this.Users)
     this.bduserService.disparador.emit({
       dataUser: this.Users
-    });
+    }); */
   }
   obtainValueSearh() {
-    this.bduserService.disparadorSearch.subscribe(data => {
+    //this.bduserService.disparadorSearch.subscribe(data => {
       // console.log('asdasdasdasdsadasdasdasdasd', data)
       // console.log(data.valueSearch)
-      this.valueSearch = data.valueSearch;
-    });
+      //this.valueSearch = data.valueSearch;
+   // });
     }
   optionClick(option:any){
-    this.optionAdmin = option;
-    console.log(typeof this.optionAdmin);
-    console.log(this.optionAdmin);
-    this.boolValue = JSON.parse(this.optionAdmin);
-    console.log(typeof this.boolValue);
-    console.log(this.boolValue);
+   // this.optionAdmin = option;
+   // console.log(typeof this.optionAdmin);
+   // console.log(this.optionAdmin);
+   // this.boolValue = JSON.parse(this.optionAdmin);
+   // console.log(typeof this.boolValue);
+   // console.log(this.boolValue);
   }
 }
 
