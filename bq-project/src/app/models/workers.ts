@@ -26,6 +26,7 @@ export interface Credentials{
   id?: any;
 }
 export interface User {
+  accessToken: string | undefined;
   id: string;
   email: string;
   roles : {

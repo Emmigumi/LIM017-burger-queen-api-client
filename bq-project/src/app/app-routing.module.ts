@@ -8,16 +8,20 @@ import { AdminProductComponent } from './admin/admin-product/admin-product.compo
 import { HomeMenuComponent } from './home/home-menu/home-menu.component';
 import { HomePedidosComponent } from './home/home-pedidos/home-pedidos.component';
 import { HomeChefComponent } from './home-chef/home-chef.component';
+import { AuthGuard } from './guards/auth.guard';
+/* import { RolesGuard } from './guards/roles.guard'; */
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'home', component: HomeComponent,
+  /* canActivate:[RolesGuard], */
   children: [
     {path: 'orders', component: HomePedidosComponent},
     {path: 'menu', component: HomeMenuComponent},
   ] },
   { path: 'login', component: LoginComponent },
   { path: 'admin', component: AdminComponent ,
+  canActivate:[AuthGuard],
   children: [
     {path: 'user', component: AdminUserComponent },
     {path: 'products', component: AdminProductComponent },

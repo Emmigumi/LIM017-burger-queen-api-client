@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router } from '@angular/router'
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { Workers } from '../models/workers';
+import { tokenLogin, Workers } from '../models/workers';
 import { BdUserService } from '../services/bd-user.service';
 
 @Component({
@@ -13,17 +14,21 @@ import { BdUserService } from '../services/bd-user.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   messageError: any;
-  constructor(private fb: FormBuilder,private toastr: ToastrService, private bduserService: BdUserService, private router: Router) {
+  tokenLogin!: tokenLogin;
+  constructor(private cookieService: CookieService, private fb: FormBuilder,private toastr: ToastrService, private bduserService: BdUserService, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit(){
     // this.obtenerBd();
+    this.saveToken(this.tokenLogin)
   }
-
+saveToken(res:any){
+  this.bduserService.getToken(res)
+}
   loginPerson() {
    /*  console.log('soy loginForm', this.loginForm);
     this.bduserService.getBdUserService().subscribe(res =>{
@@ -55,17 +60,18 @@ export class LoginComponent implements OnInit {
       password: this.loginForm.get('password')?.value,
     };
     console.log('soy user', USER);
-    
+
     this.bduserService.loginUsers(USER)
     .subscribe({
       next: res => {
       console.log('recibiendo respuesta', res)
-        this.bduserService.getToken(res)
+        this.saveToken(res);
+        this.cookieService.set('access_Token', res.accessToken, 4, '/');
         this.bduserService.getOneUser(res).subscribe(res=>{
           localStorage.setItem('id', res.id);
           localStorage.setItem('email', res.email);
           switch(res.roles.description) {
-            case 'admin': 
+            case 'admin':
             this.toastr.success('Te has logeado con exito', 'Bienvenido a BurgerQueen'),
             this.router.navigate(['/admin/user'])
             break
