@@ -13,10 +13,10 @@ export class AdminUserListComponent implements OnInit {
   valueSearch: string = '';
   optionAdmin !: any;
   
-  constructor(private bduserService: BdUserService, private toastr: ToastrService) { }
+  constructor(private bduserService: BdUserService/*,private toastr: ToastrService */) { }
 
   ngOnInit(): void {
-    this.getUser();
+   // this.getUser();
     this.obtainValueSearh();
   }
   //Obtain workers by bduserService
@@ -27,27 +27,27 @@ export class AdminUserListComponent implements OnInit {
   }
   //Delete user by bduserService
   deleteUser(workers:Workers) {
-    this.bduserService.deleteBdUserService(workers).subscribe(() =>{
+   /*  this.bduserService.deleteBdUserService(workers).subscribe(() =>{
       this.listWorkers = this.listWorkers.filter(workerUnDelete => workerUnDelete.id !== workers.id)
       this.toastr.error('El usuario fue eliminado con éxito', 'Usuario Eliminado');
-    },error => {console.log(error)})
+    },error => {console.log(error)}) */
   }
   // Update user by bduserService
   updateUser(workers: Workers) {
-    this.Users = workers;
+   /*  this.Users = workers;
     this.bduserService.disparador.emit({
       dataUser: this.Users
-    });
+    }); */
   }
   //Get search value from general filter and match them
   obtainValueSearh() {
-    this.bduserService.disparadorSearch.subscribe(data => {
+   /*  this.bduserService.disparadorSearch.subscribe(data => {
       this.valueSearch = data.valueSearch;
-    });
+    }); */
     }
     //Select the values ​​of the search options
   optionClick(option: string){
-    this.optionAdmin = option;
+   /*  this.optionAdmin = option; */
   }
 }
 
