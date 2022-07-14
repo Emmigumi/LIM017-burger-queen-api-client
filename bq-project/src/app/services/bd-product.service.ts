@@ -10,8 +10,8 @@ export class BdProductService {
   @Output() disparador: EventEmitter<any> = new EventEmitter();
   @Output() disparadorSearchProducts: EventEmitter<any> = new EventEmitter();
   @Output() disparadorID: EventEmitter<any> = new EventEmitter();
-  urlProduct = 'http://localhost:8080/products';
-  urlOnly = 'http://localhost:8080/';
+  urlProduct = 'http://localhost:5000/products';
+  urlOnly = 'http://localhost:5000/';
 
   constructor(private http: HttpClient) {}
   accessToken = localStorage.getItem('accessToken')

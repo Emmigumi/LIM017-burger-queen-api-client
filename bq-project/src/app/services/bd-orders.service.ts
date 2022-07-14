@@ -6,7 +6,7 @@ import { order } from '../models/orders'
   providedIn: 'root'
 })
 export class BdOrdersService {
-  url = 'http://localhost:8080/orders';
+  url = 'http://localhost:5000/orders';
 
   constructor(private http: HttpClient) { }
   accessToken = localStorage.getItem('accessToken')
