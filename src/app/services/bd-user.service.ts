@@ -12,7 +12,7 @@ export class BdUserService {
   @Output() disparador: EventEmitter<any> = new EventEmitter();
   @Output() disparadorSearch: EventEmitter<any> = new EventEmitter();
   urlOnly = 'https://api-bq-project.herokuapp.com/';
-  url = 'https://api-bq-project.herokuapp.com/users';
+  url = 'https://api-bq-project.herokuapp.com/users/';
 
   
 
@@ -56,7 +56,7 @@ export class BdUserService {
   }
 
   deleteBdUserService(workers: Workers): Observable<Workers> {
-    const urlDelete = `${this.url}/${workers.id}`;
+    const urlDelete = `${this.url}${workers.id}/`;
     return this.http.delete<Workers>(urlDelete, this.httpOptions());
   }
   postBdUserService(workers: Users): Observable<Users> {
@@ -64,8 +64,11 @@ export class BdUserService {
   }
   // Este es nuestro editor
   editBdUserService(id:number, workers: Users): Observable<Users>{
-    const urlUpdate = `${this.url}/${id}`;
-    console.log(urlUpdate);
-    return this.http.put<Users>(urlUpdate, workers, this.httpOptions());
+    const urlUpdate = `${this.url}${id}/`;
+    /* console.log('soy number', typeof id);
+    console.log(urlUpdate); */
+    console.log(workers.roles);
+    console.log('soy urlupdate', urlUpdate);
+    return this.http.patch<Users>(urlUpdate, workers, this.httpOptions());
   }
 }

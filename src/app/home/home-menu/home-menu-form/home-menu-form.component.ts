@@ -42,7 +42,7 @@ export class HomeMenuFormComponent implements OnInit {
      /*  this.ordersForm.reset(); */
     },error => {console.log(error)}
     )
-    window.location.reload();
+    //window.location.reload();
   }
   //Gets an array of unique values ​​from the HomeMenuListComponent to loop through in the html of the homeMenuFormComponent
   getProduct() {
