@@ -1,0 +1,88 @@
+<div
+  class="btn-group mt-3"
+  role="group"
+  aria-label="Basic mixed styles example">
+  <button
+    type="button"
+    value="none"
+    class="btn categ btn-success active"
+    #btnnone
+    (click)="optionClick(btnnone.value)">
+    Categoría
+  </button>
+  <button
+    type="button"
+    value="desayuno"
+    class="btn launcher btn-danger"
+    #btndesayuno
+    (click)="optionClick(btndesayuno.value)">
+    Desayuno
+  </button>
+  <button
+    type="button"
+    value="almuerzo"
+    class="btn dinner btn-warning"
+    #btnalmuerzo
+    (click)="optionClick(btnalmuerzo.value)">
+    Almuerzo y cena
+  </button>
+</div>
+<div class="overflow-auto row p-1 mb-md-0 mr-md-3 scroller-container">
+  <div
+    class="card col-sm-5 col-md-5 col-lg-3 m-1"
+    *ngFor="
+      let product of productNew | filterMenu: valueSearch:optionPCategory
+    ">
+    <span class="badge bg-success rounded-pill mt-2">{{
+      product.product.type
+    }}</span>
+    <img
+      class="card-img mt-1"
+      style="height: 3rem; width: 3rem"
+      src="{{ product.product.image }}"
+      alt="Card image cap" />
+    <div class="card-body">
+      <h5 class="card-title" style="margin: 0">
+        #{{ product.product.id }} | {{ product.product.name }}
+      </h5>
+      <p class="card-text" style="margin: 0">
+        <strong> Precio: </strong>{{ product.product.price | currency: 'USD' }}
+      </p>
+      <p class="data_entry" style="margin: 0">
+        <strong> Fecha: </strong>{{ product.product.dateEntry | date: 'short' }}
+      </p>
+      <div class="btn-icons p-1 m-1">
+        <button
+          type="button"
+          class="btn btn-danger mx-2"
+          [disabled]="product.qty <= 0"
+          (click)="shareProductDelete(product)"
+          style="
+            font-size: 0.5em;
+            width: 3em;
+            height: 3em;
+            border-radius: 100%;
+            text-align: center;
+            justify-content: center;
+          ">
+          <i class="fa-solid fa-minus"></i>
+        </button>
+        <span> {{ product.qty }} </span>
+        <button
+          type="button"
+          class="btn btn-warning mx-2"
+          (click)="shareProductPlus(product)"
+          style="
+            font-size: 0.5em;
+            width: 3em;
+            height: 3em;
+            border-radius: 100%;
+            text-align: center;
+            justify-content: center;
+          ">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,97 @@
+mat-sidenav-container {
+    height: 100%;
+    background-image: url('../../assets/fondo.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    mat-sidenav {
+        background-color:#FFC501;
+        mat-nav-list {
+          .menu-item {
+            margin-left: 8px;
+          }
+          .chevron-button {
+            transition: 300ms ease-in-out;
+            transform: rotate(0deg);
+            align-items: center;
+          }
+          .chevron-button.rotated {
+            transform: rotate(180deg);
+          }
+          .btn-log-out {
+            margin-top:23em;
+          }
+        }
+      }
+}
+/* Navbar ------------------------------------------*/
+.container-nav{
+    margin: 0;
+}
+.cont-collapse{
+    gap: 6%;
+}
+
+.form-Admin{
+    width: 70%;
+    padding-left: 8%;
+}
+
+.card{
+  text-align: center;
+  right: 4em;
+  width: 20em;
+  border-radius: 1em;
+}
+.badge{
+  background: #E65F00;
+  width: 7rem; 
+  align-items: center
+}
+
+// Search Bar----------------------
+.search {
+    height: 40px;
+}
+
+@media (max-width: 991px) {
+  .container-fluid{
+    display: grid;
+    grid-auto-columns: 1fr 2fr 1fr;
+    grid-template-areas:
+        "img-logo . navbar-toggler"
+        "collapse collapse collapse"
+        "card card card";
+  }
+  .navbar-toggler{
+    grid-area: navbar-toggler;
+    margin: auto;
+  }
+  .collapse {
+  grid-area: collapse ;
+  }
+  .img-logo{
+  grid-area: img-logo;
+  width: 8em;
+  margin: auto;
+  }
+  .card{
+    grid-area: card;
+    right: 0;
+    margin: auto;
+    width: 90%;
+  }
+  .form-Admin{
+    margin: auto auto 1em auto;
+    padding:0;
+  }
+  .search{
+    border-radius: 15em;
+    border:none;
+    height: 2.5em;
+    margin:auto;
+    text-align: -webkit-center;
+    font-size: larger;
+  }
+}
+

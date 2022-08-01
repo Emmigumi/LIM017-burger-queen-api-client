@@ -1,0 +1,72 @@
+<mat-sidenav-container autosize>
+  <mat-sidenav #sidenav mode="side" opened="true">
+    <mat-nav-list>
+      <mat-list-item>
+        <mat-icon
+          mat-list-icon
+          class="chevron-button sidenav-button"
+          (click)="isExpanded = !isExpanded"
+          [ngClass]="{ rotated: isExpanded }">
+          menu
+        </mat-icon>
+      </mat-list-item>
+      <mat-list-item [routerLink]="'user'">
+        <mat-icon mat-list-icon class="">group</mat-icon>
+        <span *ngIf="isExpanded">Usuarios</span>
+      </mat-list-item>
+      <mat-list-item [routerLink]="'products'">
+        <mat-icon mat-list-icon class="">fastfood</mat-icon>
+        <span *ngIf="isExpanded">Productos</span>
+      </mat-list-item>
+      <mat-list-item
+        class="btn-log-out"
+        [routerLink]="'user'"
+        (click)="logOut()">
+        <mat-icon mat-list-icon class="">subdirectory_arrow_right</mat-icon>
+        <span *ngIf="isExpanded">Cerrar Sesión</span>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <!-- NavBar--------------------- -->
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light container-nav">
+        <div class="container-fluid">
+          <img class="img-logo" src="assets/logo.png" alt="" width="150" />
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i class="fa fa-search"></i>
+          </button>
+          <div
+            class="collapse navbar-collapse cont-collapse"
+            id="navbarSupportedContent">
+            <form class="d-flex form-Admin">
+              <input
+                class="form-control search me-2 bg-light"
+                type="text"
+                placeholder="Buscar"
+                aria-label="Search"
+                #txtSearch
+                (keyup)="searchInput(txtSearch.value)" />
+            </form>
+          </div>
+          <div class="card p-2">
+            <div class="card-body m-0 p-0">
+              <span class="badge">{{ description }}</span>
+              <div>
+                {{ email }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

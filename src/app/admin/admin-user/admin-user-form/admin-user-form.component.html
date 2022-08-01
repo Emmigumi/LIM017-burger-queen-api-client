@@ -1,0 +1,81 @@
+<div class="card">
+  <div class="card-body p-2.2">
+    <h3 class="title text-center pt-2">{{ title }}</h3>
+    <form [formGroup]="userForm" (ngSubmit)="addPerson()">
+      <div class="form-group">
+        <label for="validationEmail" class="form-label mt-2"> Correo </label>
+        <input
+          type="email"
+          class="form-control"
+          formControlName="email"
+          id="validationEmail"
+          placeholder="Ingresa tu Correo" />
+        <div
+          class="text"
+          *ngIf="
+            userForm.get('email')?.hasError('required') &&
+            userForm.get('email')?.touched
+          ">
+          <span>El correo <strong> es obligatorio.</strong></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="validationPassword" class="form-label mt-2">
+          Contraseña
+        </label>
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+          id="validationPassword"
+          placeholder="Ingresa tu Contraseña" />
+        <div
+          class="text"
+          *ngIf="
+            userForm.get('password')?.hasError('required') &&
+            userForm.get('password')?.touched
+          ">
+          <span>La contraseña <strong>es obligatoria.</strong></span>
+        </div>
+      </div>
+      <label class="form-label mt-2"> ¿Es Administrador? </label>
+      <br />
+      <div class="form-check form-check-inline">
+        <input
+          id="optionAdmin"
+          type="radio"
+          value="admin"
+          name="roles"
+          formControlName="roles" />
+        <label class="text-type" for="optionAdmin">Administrador</label>
+      </div>
+      <br />
+      <div class="form-check form-check-inline">
+        <input
+          id="optionChef"
+          type="radio"
+          value="chef"
+          name="roles"
+          formControlName="roles" />
+        <label class="text-type" for="optionChef">Cocinero</label>
+      </div>
+      <br />
+      <div class="form-check form-check-inline">
+        <input
+          id="optionWeiter"
+          type="radio"
+          value="weiter"
+          name="roles"
+          formControlName="roles" />
+        <label class="text-type" for="optionWeiter">Mozo</label>
+      </div>
+      <div class="form-group mt-3 text-center">
+        <input
+          type="submit"
+          [disabled]="userForm.invalid"
+          class="btnSubmit btn-warning"
+          value="{{ title }}" />
+      </div>
+    </form>
+  </div>
+</div>

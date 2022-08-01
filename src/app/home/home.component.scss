@@ -1,0 +1,97 @@
+mat-sidenav-container {
+    height: 100%;
+    background-image: url('../../assets/fondo.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    mat-sidenav {
+        background-color:#FFC501;
+        mat-nav-list {
+          .menu-item {
+            margin-left: 8px;
+          }
+          .chevron-button {
+            transition: 300ms ease-in-out;
+            transform: rotate(0deg);
+            align-items: center;
+          }
+          .chevron-button.rotated {
+            transform: rotate(180deg);
+          }
+          .btn-log-out {
+            margin-top:23em;
+          }
+        }
+      }
+}
+.container-nav{
+    margin: 0;
+}
+/* Card-description */
+.card{
+  text-align: center;
+  right: 2%;
+  width: 50%;
+  border-radius: 1em;
+}
+.badge{
+  background: #8CC63F;
+  width: 7rem;
+  align-items: center;
+}
+/* Canvas------------- */
+.btn-add{
+  display:none;
+}
+.offcanvas-end{
+  width: 23rem;
+  background-color:#FFC501;
+}
+
+@media (max-width: 575px) {
+  .container-fluid{
+    display: grid;
+    grid-auto-columns: 1fr 2fr 1fr;
+    grid-template-areas:
+        "img-logo card card"
+        ". btn-add .";
+  }
+  .img-logo{
+  grid-area: img-logo;
+  width: 8em;
+  margin: auto;
+  }
+  .card{
+    grid-area: card;
+    right: 0;
+    margin: auto;
+    width: 90%;
+  }
+  .btn-add{
+    display: block;
+    grid-area: btn-add;
+    background: #E65F00;
+    color: #fff;
+    padding: 2%;
+    width: 100%;
+    margin: 4% auto 4% auto;
+  }
+   .badge{
+    width: 90%;
+}
+}
+@media (max-width: 393px){
+  .container-fluid{
+    display: grid;
+    grid-auto-columns: 1fr 2fr 1fr;
+    grid-template-areas:
+        "img-logo card card"
+        "btn-add btn-add .";
+  }
+  .img-logo{
+    width: 6rem;
+  }
+  .btn-add{
+    margin-left: 30%;
+  }
+}

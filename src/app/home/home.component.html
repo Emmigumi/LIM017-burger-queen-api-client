@@ -1,0 +1,74 @@
+<mat-sidenav-container autosize>
+  <mat-sidenav #sidenav mode="side" opened="true">
+    <mat-nav-list>
+      <mat-list-item>
+        <mat-icon
+          mat-list-icon
+          class="chevron-button sidenav-button"
+          (click)="isExpanded = !isExpanded"
+          [ngClass]="{ rotated: isExpanded }">
+          menu
+        </mat-icon>
+      </mat-list-item>
+      <mat-list-item [routerLink]="'menu'">
+        <mat-icon mat-list-icon class="">restaurant</mat-icon>
+        <span *ngIf="isExpanded">Menú</span>
+      </mat-list-item>
+      <mat-list-item [routerLink]="'orders'">
+        <mat-icon mat-list-icon class=""> local_library</mat-icon>
+        <span *ngIf="isExpanded">Pedidos</span>
+      </mat-list-item>
+      <mat-list-item
+        class="btn-log-out"
+        [routerLink]="'user'"
+        (click)="logOut()">
+        <mat-icon mat-list-icon class="">subdirectory_arrow_right</mat-icon>
+        <span *ngIf="isExpanded">Cerrar Sesión</span>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <!-- NavBar------------------------------- -->
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light container-nav">
+        <div class="container-fluid">
+          <img class="img-logo" src="assets/logo.png" alt="" width="150" />
+          <button
+            class="btn btn-add"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight">
+            Agregar Pedido
+          </button>
+          <div class="card p-2">
+            <div class="card-body m-0 p-0">
+              <span class="badge">{{ description }}</span>
+              <div>
+                {{ email }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- comida -->
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="offcanvasRight"
+      aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <app-home-menu-form></app-home-menu-form>
+      </div>
+    </div>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

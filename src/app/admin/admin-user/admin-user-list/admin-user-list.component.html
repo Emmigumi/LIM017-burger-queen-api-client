@@ -1,0 +1,31 @@
+<select
+  class="form-select"
+  aria-label="Default select example"
+  #txtSearch
+  (change)="optionClick(txtSearch.value)">
+  <option value="none" selected>Rol</option>
+  <option value="admin">Administrador</option>
+  <option value="weiter">Mozo</option>
+  <option value="chef">Cocinero</option>
+</select>
+<div class="overflow-auto row pt-2 pb-2 mb-md-0 mr-md-3 scroller-container">
+  <div
+    class="card col-sm-5 col-md-3 m-1"
+    *ngFor="let worker of listWorkers | filter: valueSearch:optionAdmin">
+    <div class="card-body">
+      <span class="badge rounded-pill mt-2">
+        {{ worker.roles.description }}
+      </span>
+      <h5 class="card-title m-1">#{{ worker.id }}</h5>
+      <h6 class="card-title">{{ worker.email }}</h6>
+      <div class="btn-icons">
+        <a class="btn" (click)="deleteUser(worker)">
+          <i class="fa-solid fa-trash"> </i>
+        </a>
+        <a class="btn" (click)="updateUser(worker)"
+          ><i class="fa-solid fa-pen-to-square"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

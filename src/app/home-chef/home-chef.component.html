@@ -1,0 +1,166 @@
+<mat-sidenav-container autosize>
+  <mat-sidenav #sidenav mode="side" opened="true">
+    <mat-nav-list>
+      <mat-list-item>
+        <mat-icon
+          mat-list-icon
+          class="chevron-button sidenav-button"
+          (click)="isExpanded = !isExpanded"
+          [ngClass]="{ rotated: isExpanded }">
+          menu
+        </mat-icon>
+      </mat-list-item>
+      <mat-list-item
+        class="btn-log-out"
+        [routerLink]="'user'"
+        (click)="logOut()">
+        <mat-icon mat-list-icon class="">subdirectory_arrow_right</mat-icon>
+        <span *ngIf="isExpanded">Cerrar Sesión</span>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <header>
+      <nav
+        class="navbar navbar-expand-lg navbar-light"
+        style="margin: 0; justify-content: space-around; padding: 0">
+        <div class="container-fluid row m-2">
+          <img class="img-logo" src="assets/logo.png" alt="" width="100em" />
+          <div class="card card-description p-2">
+            <div class="card-body m-0 p-0">
+              <span class="badge badge-description">{{ description }}</span>
+              <div>
+                {{ email }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="row m-2" style="justify-content: space-evenly; margin: 0">
+      <div class="col-sm-10 card-principal col-md-11 col-lg-11 bg-light">
+        <!------------------------- Botones de búsqueda---------------------------- -->
+        <div
+          class="btn-group col-sm-11"
+          role="group"
+          aria-label="Basic mixed styles example">
+          <button
+            type="button"
+            value="none"
+            class="btn btn-none btn-info active"
+            style="border-radius: 20px"
+            #btnnone
+            (click)="optionClick(btnnone.value)">
+            Categoría
+          </button>
+          <button
+            type="button"
+            value="pendiente"
+            class="btn btn-pendiente btn-danger"
+            style="border-radius: 20px"
+            #btnpendiente
+            (click)="optionClick(btnpendiente.value)">
+            Pendiente
+          </button>
+          <button
+            type="button"
+            value="preparado"
+            class="btn btn-preparado btn-warning"
+            style="border-radius: 20px"
+            #btnpreparada
+            (click)="optionClick(btnpreparada.value)">
+            Preparado
+          </button>
+          <button
+            type="button"
+            value="entregado"
+            class="btn btn-entregado btn-success"
+            style="border-radius: 20px"
+            #btnentregado
+            (click)="optionClick(btnentregado.value)">
+            Entregado
+          </button>
+        </div>
+        <div class="overflow-auto row p-1 mb-md-0 mr-md-3 scroller-container">
+          <div
+            class="card card-sales col-sm-5 col-md-5 col-lg-3 m-1"
+            *ngFor="let order of listOrders | filterOrder: optionStatus">
+            <span
+              class="badge bg-success rounded-pill mt-2"
+              style="width: 7rem; align-items: center"
+              [ngClass]="{
+                'bg-danger text-white': order.status === 'pendiente',
+                'bg-warning': order.status === 'preparado'
+              }"
+              >{{ order.status }}</span
+            >
+            <div class="card-body card-body-sales">
+              <h5 class="card-title" style="margin: 0">
+                {{ order.client }}
+              </h5>
+              <p class="data_entry" style="margin: 0">
+                <strong>Fecha: </strong>
+                {{ order.dataEntry | date: 'short' }}
+              </p>
+              <p
+                class="data_dataPrepare"
+                style="margin: 0"
+                *ngIf="order.dataPrepare">
+                <strong>Preparado: </strong>
+                {{ order.dataPrepare | date: 'short' }}
+              </p>
+              <p class="data_dataPrepare" style="margin: 0" *ngIf="order.time">
+                <strong>Tiempo de Preparación: </strong>
+                {{ order.time }}
+              </p>
+              <div
+                class="overflow-auto row p-1 mb-md-0 mr-md-3 scroller-container min-scroller-container">
+                <div
+                  class="products-sales"
+                  *ngFor="let product of order.products">
+                  <div class="product-order-container p-1 m-1">
+                    <img
+                      class="img-product-sales"
+                      src="{{ product.product.image }}" />
+                    <div class="" style="display: flex; flex-direction: column">
+                      <h5 class="card-title">
+                        {{ product.product.name }}
+                      </h5>
+                      <div
+                        class="card-info"
+                        style="display: flex; justify-content: space-between">
+                        <div class="card-text" style="font-size: 0.8em">
+                          {{ product.product.price | currency: 'USD' }}
+                        </div>
+                        <div class="card-text" style="font-size: 0.8em">
+                          {{ product.qty }}
+                        </div>
+                        <div class="card-text" style="font-size: 0.8em">
+                          {{ product.total | currency: 'USD' }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr />
+                </div>
+              </div>
+              <span class="form-label">Total: </span>
+              <span> {{ order.total | currency: 'USD' }} </span>
+              <div class="btn-icons p-1 m-2">
+                <button
+                  class="btn btn-primary"
+                  style="margin: 0px 12px; font-size: 75%"
+                  [disabled]="
+                    order.status === 'entregado' || order.status === 'preparado'
+                  "
+                  (click)="updateOrder(order)">
+                  Orden Preparada
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
