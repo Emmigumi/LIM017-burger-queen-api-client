@@ -16,7 +16,7 @@ import { AdminUserListComponent } from './admin/admin-user/admin-user-list/admin
 import { AdminProductsFormComponent } from './admin/admin-product/admin-products-form/admin-products-form.component';
 import { AdminProductsListComponent } from './admin/admin-product/admin-products-list/admin-products-list.component';
 import { FilterPipe } from './pipes/filter.pipe';
-import { FiltroPPipe } from './pipes/filtro-p.pipe';
+import { filterPPipe } from './pipes/filtro-p.pipe';
 import { AdminUserComponent } from './admin/admin-user/admin-user.component';
 import { AdminProductComponent } from './admin/admin-product/admin-product.component';
 import { HomeMenuComponent } from './home/home-menu/home-menu.component';
@@ -33,7 +33,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HomeComponent, AdminComponent, AdminUserFormComponent, AdminUserListComponent, AdminProductsFormComponent, AdminProductsListComponent, FilterPipe, FiltroPPipe, AdminUserComponent, AdminProductComponent, HomeMenuComponent, HomePedidosComponent, HomeMenuListComponent, HomeMenuFormComponent, HomePedidosListComponent, FilterMenuPipe, HomeChefComponent, FilterOrderPipe],
+  declarations: [AppComponent, LoginComponent, HomeComponent, AdminComponent, AdminUserFormComponent, AdminUserListComponent, AdminProductsFormComponent, AdminProductsListComponent, FilterPipe, filterPPipe, AdminUserComponent, AdminProductComponent, HomeMenuComponent, HomePedidosComponent, HomeMenuListComponent, HomeMenuFormComponent, HomePedidosListComponent, FilterMenuPipe, HomeChefComponent, FilterOrderPipe],
   imports: [
     BrowserModule,
     AppRoutingModule,

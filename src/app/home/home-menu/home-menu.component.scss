@@ -14,12 +14,13 @@
     }
 }
 
-@media (max-width: 575px) {
+@media (max-width: 576px) {
     .home-form{
         display: none;
     }
     .home-list{
         max-height:31rem;
+        width: 80%;
     }
 }
 @media (max-width: 393px){

@@ -14,24 +14,34 @@ export class AdminProductsListComponent implements OnInit {
   valueSearch: string = '';
   optionPCategory!: string;
   
-  constructor(private bdproductsService:  BdProductService, private toastr: ToastrService) {}
+  constructor(
+    private bdproductsService:  BdProductService, 
+    private toastr: ToastrService
+    ) {}
 
   ngOnInit(): void {
     this.getProducts();
     this.obtainValueSearh();
+    this.updateDataComponent();
   }
   //Mostrar los elementos de la base de datos
   getProducts(){
     this.bdproductsService. getBdProductService().subscribe(product => {
       (this.listProducts = product);
-    },error => {console.log(error)})
+    },
+    error => {
+      console.log(error);
+    });
   }
   //Borrar productos
   deleteProduct(product: Products) {
     this.bdproductsService.deleteBdProductService(product).subscribe(() => {
       this.toastr.error('El producto fue eliminado con éxito', 'Producto Eliminado');
       this.listProducts = this.listProducts.filter(productUnDelete => productUnDelete.id !== product.id);
-    },error => {console.log(error)})
+    },
+    error => {
+      console.log(error);
+    });
   }
   //Actualiza el producto
   updateProduct(product: Products) {
@@ -50,5 +60,12 @@ export class AdminProductsListComponent implements OnInit {
   // Obtiene la opción elegida 
   optionClick(option:string){
     this.optionPCategory = option;
+  }
+  updateDataComponent() {
+    this.bdproductsService.update.subscribe(data => {
+      if(data.update === true){
+        this.getProducts();
+      };
+    });
   }
 }

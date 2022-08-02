@@ -1,8 +1,8 @@
-import { FiltroPPipe } from './filtro-p.pipe';
+import { filterPPipe } from './filtro-p.pipe';
 
-describe('FiltroPPipe', () => {
+describe('filterPPipe', () => {
   it('create an instance', () => {
-    const pipe = new FiltroPPipe();
+    const pipe = new filterPPipe();
     expect(pipe).toBeTruthy();
   });
 });

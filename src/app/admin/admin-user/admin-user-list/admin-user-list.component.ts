@@ -13,42 +13,66 @@ export class AdminUserListComponent implements OnInit {
   valueSearch: string = '';
   optionAdmin !: any;
   
-  constructor(private bduserService: BdUserService, private toastr: ToastrService) { }
+  constructor(
+    private bduserService: BdUserService, 
+    private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.getUser();
     this.obtainValueSearh();
+    this.updateDataComponent();
   }
   //Obtain workers by bduserService
   getUser() {
-    this.bduserService.getBdUserService().subscribe(worker => {
+    this.bduserService.getBdUserService().subscribe(
+      worker => {
       (this.listWorkers = worker);
-    },error => {console.log(error)});
-  }
+    },
+    error => {
+      console.log(error);
+    }
+  );
+}
   //Delete user by bduserService
-  deleteUser(workers:Workers) {
-    this.bduserService.deleteBdUserService(workers).subscribe(() =>{
-      this.listWorkers = this.listWorkers.filter(workerUnDelete => workerUnDelete.id !== workers.id)
-      this.toastr.error('El usuario fue eliminado con éxito', 'Usuario Eliminado');
-    },error => {console.log(error)})
-  }
+  deleteUser(workers: Workers) {
+    this.bduserService.deleteBdUserService(workers).subscribe(
+      () =>{
+      this.listWorkers = this.listWorkers.filter(
+        workerUnDelete => workerUnDelete.id !== workers.id
+        );
+      this.toastr.error(
+        'El usuario fue eliminado con éxito', 
+        'Usuario Eliminado'
+        );
+    },
+    error => {
+      console.log(error);
+    }
+  );
+}
   // Update user by bduserService
   updateUser(workers: Workers) {
     this.Users = workers;
     this.bduserService.disparador.emit({
-      dataUser: this.Users
+      dataUser: this.Users,
     });
   }
   //Get search value from general filter and match them
   obtainValueSearh() {
-   /*  this.bduserService.disparadorSearch.subscribe(data => {
+    this.bduserService.disparadorSearch.subscribe(data => {
       this.valueSearch = data.valueSearch;
-    }); */
+    }); 
     }
     //Select the values ​​of the search options
   optionClick(option: string){
     this.optionAdmin = option;
-    console.log('soy optionAdmin:', this.optionAdmin);
+  }
+  updateDataComponent() {
+    this.bduserService.update.subscribe(data => {
+      if (data.update === true) {
+        this.getUser();
+      }
+    });
   }
 }
 

@@ -2,9 +2,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Products } from '../models/products';
 
 @Pipe({
-  name: 'filtroP'
+  name: 'filterP'
 })
-export class FiltroPPipe implements PipeTransform {
+export class filterPPipe implements PipeTransform {
   valueoption!: string;
   transform(product: Products[], searchInputP:string='', optionPCategory:string=''): Products[] {
     // console.log('que trae pipe', product);

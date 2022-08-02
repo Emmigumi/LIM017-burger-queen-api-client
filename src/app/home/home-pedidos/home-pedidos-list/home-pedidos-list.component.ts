@@ -13,7 +13,10 @@ export class HomePedidosListComponent implements OnInit {
   dataChange: any = new Date();
   optionStatus: string = '';
 
-  constructor( private bdordersService:  BdOrdersService, private toastr: ToastrService) { }
+  constructor( 
+    private bdordersService:  BdOrdersService, 
+    private toastr: ToastrService
+    ) {}
 
   ngOnInit(): void {
     this.getOrders();
@@ -24,21 +27,30 @@ export class HomePedidosListComponent implements OnInit {
       this.listOrders = order;
       console.log('Sort Ordenes',this.listOrders)
       //Sort by date from newest to oldest
-    }
-    )
+    });
   }
   //Delete orders
   deleteOrder(order: order) {
-    this.bdordersService.deleteBdOrderService(order).subscribe(() => {
-      this.toastr.error('La orden fue eliminado con éxito', 'Orden Eliminada');
-      this.listOrders = this.listOrders.filter(orderdelete => orderdelete.id !== order.id);
-    },error => {console.log(error)})
-  }
+    this.bdordersService.deleteBdOrderService(order).subscribe(
+      () => {
+      this.toastr.error(
+        'La orden fue eliminado con éxito', 
+        'Orden Eliminada'
+        );
+      this.listOrders = this.listOrders.filter(
+        orderdelete => orderdelete.id !== order.id
+        );
+    },
+    error => {
+      console.log(error);
+    }
+  );
+}
   //Update the delivery status of a delivered
   updateOrder(order: order) {
     const ORDERS: order = {
       id: order.id,
-      status: "entregado",
+      status: 'entregado',
       client: order.client,
       products: order.products,
       dataEntry: order.dataEntry,
@@ -48,9 +60,12 @@ export class HomePedidosListComponent implements OnInit {
       time: order.time,
     }
     this.bdordersService.editBdOrderService(ORDERS).subscribe(data => {
-      this.toastr.success('La orden fue actualizada con éxito', 'Orden Actualizada');
+      this.toastr.success(
+        'La orden fue actualizada con éxito', 
+        'Orden Actualizada'
+        );
       this.getOrders();
-    })
+    });
   }
   optionClick(option:string){
     this.optionStatus = option;
