@@ -33,9 +33,10 @@
     *ngFor="
       let product of productNew | filterMenu: valueSearch:optionPCategory
     ">
-    <span class="badge bg-success rounded-pill mt-2">{{
+    <span class="badge bg-success rounded-pill mt-2"
+    >{{
       product.product.type
-    }}</span>
+    }} </span>
     <img
       class="card-img mt-1"
       style="height: 3rem; width: 3rem"

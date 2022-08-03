@@ -44,7 +44,8 @@
       class="badge bg-success rounded-pill mt-2"
       [ngClass]="{
         'bg-danger': order.status === 'pendiente',
-        'bg-warning': order.status === 'preparado'
+        'bg-warning': order.status === 'preparado',
+        'bg-info': order.status === 'entregado'
       }"
       >{{ order.status }}</span
     >

@@ -10,7 +10,7 @@
 <div class="overflow-auto row pt-2 pb-2 mb-md-0 mr-md-3 scroller-container">
   <div
     class="card col-sm-5 col-md-5 m-1"
-    *ngFor="let product of listProducts | filtroP: valueSearch:optionPCategory">
+    *ngFor="let product of listProducts | filterP: valueSearch:optionPCategory">
     <div class="card-body">
       <span class="badge bg-success rounded-pill mt-2">{{ product.type }}</span>
       <img

@@ -7,23 +7,20 @@ import { Workers } from '../models/workers';
 export class FilterPipe implements PipeTransform {
   valueoption!: boolean;
 
-  transform(workers: Workers[], searchInput:string='', optionAdmin:string =''): Workers[] {
-    // console.log(workers);
-    // console.log(searchInput);
-    // console.log('soy option', optionAdmin);
-    // console.log('soy option con el tipo de:', typeof optionAdmin);
-    // console.log('soy option con el tipo de:', optionAdmin.length);
+  transform(
+    workers: Workers[], 
+    searchInput:string='', 
+    optionAdmin:string =''
+    ): Workers[] {
     if(searchInput.length > 0 ){
-      // console.log('me estan buscando');
       const filterSearch = workers.filter(value => value.email.toLowerCase().includes(searchInput.toLowerCase()) || value.password.includes(searchInput));
       return filterSearch;
     }
 
-    if(optionAdmin === "admin" /* || optionAdmin === "false" */){
-      //his.valueoption = optionAdmin==='true'/* ?true:false */;
-      // console.log('entro a option admin');
-      const filterAdmin = workers.filter(value => value.roles.description===optionAdmin);
-      // console.log(filterAdmin)
+    if(optionAdmin === "admin") {
+      const filterAdmin = workers.filter(
+        value => value.roles.description === optionAdmin
+        );
       return filterAdmin;
     }
     if(optionAdmin === "weiter"){
@@ -31,13 +28,14 @@ export class FilterPipe implements PipeTransform {
       return filterAdmin;
     }
     if(optionAdmin === "chef"){
-      const filterAdmin = workers.filter(value => value.roles.description===optionAdmin);
+      const filterAdmin = workers.filter(
+        value => value.roles.description === optionAdmin
+        );
       return filterAdmin;
     }
-    if(optionAdmin==='none'){
+    if(optionAdmin === 'none') {
       return workers;
     }
-    // console.log('consoleo a todos los usuarios');
     return workers;
   }
 }

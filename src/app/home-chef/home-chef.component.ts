@@ -18,7 +18,12 @@ export class HomeChefComponent implements OnInit {
   email: any;
   description:  any;
 
-  constructor( private bdordersService:  BdOrdersService, private toastr: ToastrService,private cookieService: CookieService, private router: Router) { }
+  constructor( 
+    private bdordersService:  BdOrdersService, 
+    private toastr: ToastrService,
+    private cookieService: CookieService, 
+    private router: Router
+    ) {}
 
   ngOnInit(): void {
     this.getOrders();
@@ -27,21 +32,21 @@ export class HomeChefComponent implements OnInit {
   getUser(){
     this.email = localStorage.getItem('email');
     this.description = localStorage.getItem('description');
-    if(this.description==='chef') {
-      this.description = "Cocinero"
+    if(this.description === 'chef') {
+      this.description = "Cocinero";
     }
-    console.log('Datos de la persona', this.description,this.email)
+
+
   }
   getOrders(){
     this.bdordersService.getBdOrderService().subscribe(order => {
       (this.listOrders = order), console.log('esto devuelve getproduct', order);
-    }
-    )
+    });
   }
   optionClick(option:string){
     this.optionStatus = option;
-    console.log('Que es optionClick', this.optionStatus);
-  }
+ }
+
   updateOrder(order: order) {
     console.log(order.status)
       console.log("Actualizo a delivery")
@@ -53,19 +58,22 @@ export class HomeChefComponent implements OnInit {
         dataEntry: order.dataEntry,
         dataPrepare: this.dataChange,
         total: order.total,
-        time: (Math.round((<any> new Date(this.dataChange).getTime() - <any> new Date(order.dataEntry).getTime())/(1000*60) * 100) / 100),
-      }
+        time: Math.round(((<any>new Date(this.dataChange).getTime()-<any>new Date(order.dataEntry).getTime()) /(1000*60))*100)/100};
       this.bdordersService.editBdOrderService(ORDERS).subscribe(data => {
-        this.toastr.success('La orden fue actualizada con éxito', 'Orden Actualizada');
+        this.toastr.success(
+          'La orden fue actualizada con éxito', 
+          'Orden Actualizada'
+          );
         this.getOrders();
         console.log('Editado con éxito');
-      })
+      });
   }
 
   logOut() {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('id');
     localStorage.removeItem('email');
+    localStorage.removeItem('description');
     this.cookieService.delete('roles_access');
     this.router.navigate(['/login']);
     this.toastr.success('Se cerro sesión con éxito', 'Cerrar Sesión');

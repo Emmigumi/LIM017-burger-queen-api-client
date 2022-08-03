@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 import { Component, OnInit } from '@angular/core';
 
 
@@ -7,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-menu.component.scss']
 })
 export class HomeMenuComponent implements OnInit {
-  constructor() { }
-  ngOnInit(): void {
-  }
+  constructor() {}
+  ngOnInit(): void {}
 }

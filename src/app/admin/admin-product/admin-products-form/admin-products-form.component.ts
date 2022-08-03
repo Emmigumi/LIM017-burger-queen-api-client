@@ -10,13 +10,17 @@ import { ResourceLoader } from '@angular/compiler';
   styleUrls: ['./admin-products-form.component.scss'],
 })
 export class AdminProductsFormComponent implements OnInit {
-
   productForm: FormGroup;
   title = 'Agregar Producto';
   productID !:number;
   dataOrder: any = new Date();
 
-  constructor(private fb: FormBuilder, private bdproductService:  BdProductService, private toastr: ToastrService) {
+  constructor(
+    private fb: FormBuilder, 
+    private bdproductService:  BdProductService, 
+    private toastr: ToastrService,
+    private bdproductsService: BdProductService
+    ) {
     // Obtiene los valores del formulario ProductForm
     this.productForm = this.fb.group({
       name: ['', Validators.required],
@@ -33,9 +37,9 @@ export class AdminProductsFormComponent implements OnInit {
   }
   //Obtiene el id del disparador de admin productlist
   obtainIdProduct() {
-    this.bdproductService.disparador.subscribe(data=>{
-      return this.productID = data.dataProduct.id;
-    })
+    this.bdproductService.disparador.subscribe(data => {
+      return (this.productID = data.dataProduct.id);
+    });
   }
   //Agrega o edita productos
   addProduct(){
@@ -48,33 +52,60 @@ export class AdminProductsFormComponent implements OnInit {
     };
     if(this.productID!== undefined) {
       //editar Producto de
-      this.bdproductService.editBdProductService(this.productID, PRODUCTS).subscribe(data => {
-        this.toastr.success('El producto fue actualizado con éxito', 'Producto Actualizado');
-      },error => {console.log(error)})
-    } else{
+      this.bdproductService
+      .editBdProductService(this.productID, PRODUCTS)
+      .subscribe(
+        data => {
+        this.toastr.success(
+          'El producto fue actualizado con éxito',
+           'Producto Actualizado'
+           );
+           this.productForm.reset();
+           this.bdproductsService.update.emit({
+             update: true,
+           });
+      },
+      error => {
+        console.log(error);
+      }
+      );
+    } else {
       // Crear producto, emitir mensaje
-      this.bdproductService.postBdProductService(PRODUCTS).subscribe(data => {
-        this.toastr.success('El producto fue agregado con éxito', 'Producto Actualizado');
-      },error => {console.log(error)}
-      )
-    }
-    //window.location.reload();
+      this.bdproductService.postBdProductService(PRODUCTS).subscribe(
+        data => {
+        this.toastr.success(
+          'El producto fue agregado con éxito', 
+          'Producto Actualizado'
+          );
+          this.productForm.reset();
+          this.bdproductsService.update.emit({
+            update: true,
+          });
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
+
+}
 // Obtiene los valores del servidor los muestra en el formulario y permite su reasignación
   editFormProduct() {
-    this.bdproductService.disparador.subscribe(data => { //datos obtenidos por el disparador desde product-list
+    this.bdproductService.disparador.subscribe(data => { 
+      //datos obtenidos por el disparador desde product-list
       if(data.dataProduct.id !== null){
       this.title = 'Editar Producto';
-      this.productForm.setValue({ // Reasignación de valores
+      this.productForm.setValue({ 
+        // Reasignación de valores
         name: data.dataProduct.name,
         price: data.dataProduct.price,
         image: data.dataProduct.image,
         type: data.dataProduct.type,
         dateEntry: this.dataOrder,
-      })
+      });
     }
-  })
-}
+  });
+ }
 }
 
 

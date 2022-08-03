@@ -18,15 +18,20 @@ export class HomeMenuFormComponent implements OnInit {
   title = 'Agregar Orden';
   dataOrder: any = new Date();
 
-  constructor(private fb: FormBuilder, private bdproductsService:  BdProductService, private bdordersService:  BdOrdersService, private toastr: ToastrService) {
+  constructor(
+    private fb: FormBuilder, 
+    private bdproductsService:  BdProductService, 
+    private bdordersService:  BdOrdersService, 
+    private toastr: ToastrService
+    ) {
     this.ordersForm = this.fb.group({
       client: ['', Validators.required],
       dataEntry: [ this.dataOrder ],
-    })
+    });
   }
   //Keeps this method initialized, keeping the menu items in view
   ngOnInit(): void {
-    this.getProduct();
+    this.getProduct(false);
   }
   //Method that allows me to obtain the value of each input of the form and post it in the database
   addOrders(){
@@ -37,19 +42,37 @@ export class HomeMenuFormComponent implements OnInit {
       dataEntry: this.dataOrder,
       total: this.totalOrder,
     }
-    this.bdordersService.postBdOrderService(ORDERS).subscribe( () => {
-      this.toastr.success('La orden fue agregada con éxito', 'Orden Agregada');
-     /*  this.ordersForm.reset(); */
-    },error => {console.log(error)}
-    )
+    this.bdordersService.postBdOrderService(ORDERS).subscribe( 
+      data => {
+      this.toastr.success(
+        'La orden fue agregada con éxito', 
+        'Orden Agregada'
+        );
+      this.ordersForm.reset();
+      this.getProduct(true);
+    },
+    error => {
+      console.log(error);
+    }
+  );
     //window.location.reload();
   }
   //Gets an array of unique values ​​from the HomeMenuListComponent to loop through in the html of the homeMenuFormComponent
-  getProduct() {
-    this.bdproductsService.disparador.subscribe(data => {
-      this.productNew = data.dataProduct;
-      this.productNew.map((product => product.total=product.qty*product.product.price));
-      this.totalOrder = this.productNew.reduce((acumulador, actual) => acumulador + actual.total, 0);
-    });
+  getProduct(update: boolean) {
+    if (!update) {
+      this.bdproductsService.disparador.subscribe(data => {
+        this.productNew = data.dataProduct;
+        this.productNew.map(
+          product => (product.total = product.qty * product.product.price)
+        );
+        this.totalOrder = this.productNew.reduce((acumulador, actual) => acumulador + actual.total,0);
+      });
+    } else {
+      this.productNew = [];
+      this.totalOrder = 0;
+      this.bdproductsService.update.emit({
+        update: true,
+      });
+    }
   }
 }

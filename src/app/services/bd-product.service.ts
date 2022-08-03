@@ -10,19 +10,19 @@ export class BdProductService {
   @Output() disparador: EventEmitter<any> = new EventEmitter();
   @Output() disparadorSearchProducts: EventEmitter<any> = new EventEmitter();
   @Output() disparadorID: EventEmitter<any> = new EventEmitter();
+  @Output() update: EventEmitter<any> = new EventEmitter();
+
   urlProduct = 'https://api-bq-project.herokuapp.com/products/';
   urlOnly = 'https://api-bq-project.herokuapp.com/';
 
   constructor(private http: HttpClient) {}
   accessToken = localStorage.getItem('accessToken')
-  httpOptions = () => (
-    {
-    headers: new HttpHeaders(
-      {
+  httpOptions = () => ({
+    headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.accessToken}`
-      })
-  })
+      }),
+  });
 
   getToken(tokenLogin:any){
     localStorage.setItem('accessToken', tokenLogin.accessToken);
@@ -33,14 +33,25 @@ export class BdProductService {
     return this.http.get<Products[]>(this.urlProduct, this.httpOptions());
   }
   deleteBdProductService(products: Products): Observable<Products>{
-    const urlDeleteProduct = `${this.urlProduct}/${products.id}`;
+    const urlDeleteProduct = `${this.urlProduct}${products.id}`;
     return this.http.delete<Products>(urlDeleteProduct, this.httpOptions());
   }
   postBdProductService(products: productSinId): Observable<productSinId>{
-    return this.http.post<productSinId>(this.urlProduct, products, this.httpOptions());
+    return this.http.post<productSinId>(
+      this.urlProduct, 
+      products, 
+      this.httpOptions()
+      );
   }
-  editBdProductService(id:number, products: productSinId): Observable<productSinId>{
-    const urlUpdateProduct = `${this.urlProduct}/${id}`;
-    return this.http.put<productSinId>(urlUpdateProduct, products, this.httpOptions());
- }
+  editBdProductService(
+    id:number, 
+    products: productSinId
+    ): Observable<productSinId>{
+    const urlUpdateProduct = `${this.urlProduct}${id}`;
+    return this.http.put<productSinId>(
+      urlUpdateProduct, 
+      products, 
+      this.httpOptions()
+      );
+   }
 }
